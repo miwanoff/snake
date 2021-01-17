@@ -136,9 +136,63 @@ class Snake {
     this.nextDirection = newDirection;
   };
 }
+
+class Game {
+  intervalId;
+  constructor() {
+    this.score = 0;
+    this.apple = new Apple();
+    this.snake = new Snake();
+  }
+
+  drawBorder = function () {
+    context.fillStyle = "Gray";
+    context.fillRect(0, 0, width, blockSize);
+    context.fillRect(0, height - blockSize, width, blockSize);
+    context.fillRect(0, 0, blockSize, height);
+    context.fillRect(width - blockSize, 0, blockSize, height);
+  };
+
+  drawScore = function () {
+    context.font = "20px Courier";
+    context.fillStyle = "Black";
+    context.textAlign = "left";
+    context.textBaseline = "top";
+    context.fillText("Счет: " + this.score, blockSize, blockSize);
+  };
+
+  gameOver = function () {
+    clearInterval(this.intervalId);
+    context.font = "60px Courier";
+    context.fillStyle = "Black";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText("Game over!", width / 2, height / 2);
+  };
+
+  go = function () {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    this.drawScore();
+    this.snake.move(this.apple, this);
+    this.snake.draw();
+    this.apple.draw();
+    this.drawBorder();
+  };
+
+  start = function () {
+    this.intervalId = setInterval(this.go.bind(this), 200);
+    // Задаем обработчик события keydown
+    addEventListener("keydown", (event) => {
+      let newDirection = directions[event.keyCode];
+      if (newDirection !== undefined) {
+        this.snake.setDirection(newDirection);
+      }
+    });
+  };
+}
 // let sampleBlock = new Block(5, 5);
 // sampleBlock.drawCircle();
 
-let apple = new Apple();
-apple.move();
-apple.draw();
+// let apple = new Apple();
+// apple.move();
+// apple.draw();
