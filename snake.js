@@ -14,3 +14,40 @@ const directions = {
 };
 
 let intervalId;
+
+class Block {
+  constructor(col = 0, row = 0) {
+    this.col = col;
+    this.row = row;
+  }
+
+  drawSquare(color = "blue") {
+    let x = this.col * blockSize;
+    let y = this.row * blockSize;
+    context.fillStyle = color;
+    context.fillRect(x, y, blockSize, blockSize);
+  }
+
+  drawCircle(color = "lime") {
+    let centerX = this.col * blockSize + blockSize / 2;
+    let centerY = this.row * blockSize + blockSize / 2;
+    context.fillStyle = color;
+    this.circle(centerX, centerY, blockSize / 2, true);
+  }
+
+  circle(x, y, radius, fillCircle = true) {
+    context.beginPath();
+    context.arc(x, y, radius, 0, Math.PI * 2, false);
+    if (fillCircle) {
+      context.fill();
+    } else {
+      context.stroke();
+    }
+  }
+
+  equal(otherBlock) {
+    return this.col === otherBlock.col && this.row === otherBlock.row;
+  }
+}
+// let sampleBlock = new Block(5, 5);
+// sampleBlock.drawCircle();
