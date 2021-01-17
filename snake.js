@@ -190,6 +190,9 @@ class Game {
     });
   };
 }
+
+let game = new Game();
+game.start();
 // let sampleBlock = new Block(5, 5);
 // sampleBlock.drawCircle();
 
