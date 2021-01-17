@@ -49,5 +49,26 @@ class Block {
     return this.col === otherBlock.col && this.row === otherBlock.row;
   }
 }
+
+class Apple {
+  constructor() {
+    this.block = new Block(10, 10);
+  }
+
+  draw = function () {
+    this.block.drawCircle("LimeGreen");
+  };
+
+  move = function () {
+    const randomCol = Math.floor(Math.random() * (widthInBlocks - 2)) + 1;
+    const randomRow = Math.floor(Math.random() * (heightInBlocks - 2)) + 1;
+    this.block = new Block(randomCol, randomRow);
+  };
+}
+
 // let sampleBlock = new Block(5, 5);
 // sampleBlock.drawCircle();
+
+let apple = new Apple();
+apple.move();
+apple.draw();
